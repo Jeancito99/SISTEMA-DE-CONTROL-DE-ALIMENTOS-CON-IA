@@ -1,0 +1,27 @@
+# simulador/generar_datos.py
+
+import random
+
+def generar():
+
+    temperatura = round(
+        random.uniform(20,35),2
+    )
+
+    humedad = round(
+        random.uniform(40,90),2
+    )
+
+    estados = [
+        "Fresco",
+        "Maduro",
+        "Deteriorado"
+    ]
+
+    estado = random.choice(estados)
+
+    return {
+        "temperatura":temperatura,
+        "humedad":humedad,
+        "estado":estado
+    }
