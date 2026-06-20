@@ -1,24 +1,43 @@
-import mysql.connector
+# import mysql.connector
+
+# # def obtener_conexion():
+
+# #     conexion = mysql.connector.connect(
+# #         host="localhost",
+# #         user="root",
+# #         password="admin",
+# #         database="alimentos_iot"
+# #     )
+
+# #     return conexion
 
 # def obtener_conexion():
 
 #     conexion = mysql.connector.connect(
-#         host="localhost",
+#         host="turntable.proxy.rlwy.net",
+#         port=45347,
 #         user="root",
-#         password="admin",
+#         password="zQFeKipPVXmlGBTsqJATKJfxlmOcKYtV",
 #         database="alimentos_iot"
 #     )
 
 #     return conexion
 
-def obtener_conexion():
 
-    conexion = mysql.connector.connect(
-        host="turntable.proxy.rlwy.net",
-        port=45347,
-        user="root",
-        password="zQFeKipPVXmlGBTsqJATKJfxlmOcKYtV",
-        database="alimentos_iot"
-    )
+import os
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
-    return conexion
+app = Flask(__name__)
+
+# Construir la URI con variables de entorno
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_HOST = os.getenv("DB_HOST")
+DB_PORT = os.getenv("DB_PORT")
+DB_NAME = os.getenv("DB_NAME")
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
